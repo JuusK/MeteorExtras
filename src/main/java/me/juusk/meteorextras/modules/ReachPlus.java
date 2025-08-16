@@ -31,6 +31,14 @@ public class ReachPlus extends Module {
         .sliderMax(20)
         .build()
     );
+    private final Setting<Double> distance = sgGeneral.add(new DoubleSetting.Builder()
+        .name("distance")
+        .description("The distance you tp to from the target.")
+        .defaultValue(2.5)
+        .min(0)
+        .sliderMax(6)
+        .build()
+    );
 
     private final Setting<Double> entityReach = sgGeneral.add(new DoubleSetting.Builder()
         .name("entity-reach")
@@ -65,25 +73,25 @@ public class ReachPlus extends Module {
         Entity targetedEntity = DebugRenderer.getTargetedEntity(mc.player, entityReach.get().intValue()).isPresent() ? DebugRenderer.getTargetedEntity(mc.player, entityReach.get().intValue()).get() : null;
         if (targetedEntity != null) {
             if (mc.options.attackKey.isPressed()) {
-                ModuleUtils.splitTeleport(mc.player.getPos(), targetedEntity.getPos(), perBlink.get());
+                ModuleUtils.splitTeleport(mc.player.getPos(), targetedEntity.getPos(), perBlink.get(), distance.get());
                 mc.interactionManager.attackEntity(mc.player, targetedEntity);
                 mc.player.swingHand(Hand.MAIN_HAND);
-                ModuleUtils.splitTeleport(targetedEntity.getPos(), mc.player.getPos(), perBlink.get());
+                ModuleUtils.splitTeleport(targetedEntity.getPos(), mc.player.getPos(), perBlink.get(), distance.get());
             }
         } else if(mc.player.getMainHandStack().getItem() instanceof BlockItem) {
             HitResult result = mc.player.raycast(blockReach.get(), 1f / 20f, false);
             if (result != null && result.getType() == HitResult.Type.BLOCK) {
                 if(mc.options.useKey.isPressed()) {
                     BlockPos resultPos = ((BlockHitResult) result).getBlockPos().add(0, 1, 0);
-                    ModuleUtils.splitTeleport(mc.player.getPos(), resultPos.toCenterPos(), perBlink.get());
+                    ModuleUtils.splitTeleport(mc.player.getPos(), resultPos.toCenterPos(), perBlink.get(), distance.get());
                     //BlockUtils.place(resultPos, Hand.MAIN_HAND, mc.player.getInventory().getSlotWithStack(mc.player.getMainHandStack()), true, 1, true, true, true);
                     BlockUtils.interact((BlockHitResult)result, Hand.MAIN_HAND, true);
-                    ModuleUtils.splitTeleport(resultPos.toCenterPos(), mc.player.getPos(), perBlink.get());
+                    ModuleUtils.splitTeleport(resultPos.toCenterPos(), mc.player.getPos(), perBlink.get(), distance.get());
                 } else if(mc.options.attackKey.isPressed()) {
                     BlockPos resultPos = ((BlockHitResult) result).getBlockPos().add(0, 1, 0);
-                    ModuleUtils.splitTeleport(mc.player.getPos(), resultPos.toCenterPos(), perBlink.get());
+                    ModuleUtils.splitTeleport(mc.player.getPos(), resultPos.toCenterPos(), perBlink.get(), distance.get());
                     BlockUtils.breakBlock(((BlockHitResult)result).getBlockPos(), true);
-                    ModuleUtils.splitTeleport(resultPos.toCenterPos(), mc.player.getPos(), perBlink.get());
+                    ModuleUtils.splitTeleport(resultPos.toCenterPos(), mc.player.getPos(), perBlink.get(), distance.get());
                 }
             }
         }

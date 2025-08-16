@@ -40,7 +40,7 @@ import java.util.List;
 
 public class AutoOminous extends Module {
 
-    private static final Class<? extends Module>[] AURAS = new Class[]{KillAura.class, CrystalAura.class, AnchorAura.class, BedAura.class};
+    private static final Class<? extends Module>[] AURAS = new Class[]{KillAura.class, CrystalAura.class, AnchorAura.class, BedAura.class, InfAura.class};
 
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
 
@@ -87,7 +87,6 @@ public class AutoOminous extends Module {
             }
         }
         if(!contains) {
-            System.out.println("adding cause not contain");
             bossBars.add(new BossBarExtension(event.bossBar.getUuid(), event.bossBar.getName()));
         }
     }
@@ -95,7 +94,7 @@ public class AutoOminous extends Module {
 
     @EventHandler(priority = EventPriority.LOW)
     private void onTick(TickEvent.Pre event) {
-        if(tick >= 20) { bossBars.clear(); tick = 0; System.out.println("clearing cause tick");}
+        if(tick >= 20) { bossBars.clear(); tick = 0; }
         if (Modules.get().get(AutoGap.class).isEating()) return;
         if(Modules.get().get(AutoEat.class).eating) return;
         int slot = findSlot();
@@ -195,7 +194,6 @@ public class AutoOminous extends Module {
         boolean raidActive = false;
         for(BossBarExtension bossBar : bossBars) {
             if(bossBar.getName().getString().toLowerCase().contains("raid")) {
-                System.out.println("raid bossbar");
                 raidActive = true;
             }
         }

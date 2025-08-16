@@ -8,7 +8,7 @@ public class ModuleUtils {
 
 
 
-    public static void splitTeleport(Vec3d from, Vec3d to, double perBlink) {
+    public static void splitTeleport(Vec3d from, Vec3d to, double perBlink, double extraDistance) {
         Vec3d playerPos = from;
         Vec3d targetPos = to;
         Vec3d toTarget = targetPos.subtract(from);
@@ -18,7 +18,7 @@ public class ModuleUtils {
         toTarget = toTarget.normalize();
 
 
-        toTarget = toTarget.multiply(distance - 4);
+        toTarget = toTarget.multiply(distance - extraDistance);
         targetPos = playerPos.add(toTarget);
 
         double ceiledDistance = Math.ceil(distance / perBlink);

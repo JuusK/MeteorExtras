@@ -136,14 +136,7 @@ public class InfAura extends Module {
     );
 
 
-    private final Setting<Double> perBlink = sgTargeting.add(new DoubleSetting.Builder()
-        .name("per-blink")
-        .description("After how many blocks it teleports")
-        .defaultValue(8.5)
-        .min(2)
-        .sliderMax(20)
-        .build()
-    );
+
 
 
     private final Setting<Double> wallsRange = sgTargeting.add(new DoubleSetting.Builder()
@@ -152,6 +145,22 @@ public class InfAura extends Module {
         .defaultValue(10)
         .min(0)
         .sliderMax(100)
+        .build()
+    );
+    private final Setting<Double> perBlink = sgTargeting.add(new DoubleSetting.Builder()
+        .name("per-blink")
+        .description("After how many blocks it teleports")
+        .defaultValue(8.5)
+        .min(2)
+        .sliderMax(20)
+        .build()
+    );
+    private final Setting<Double> distance = sgGeneral.add(new DoubleSetting.Builder()
+        .name("distance")
+        .description("The distance you tp to from the target.")
+        .defaultValue(2.5)
+        .min(0)
+        .sliderMax(6)
         .build()
     );
 
@@ -396,10 +405,10 @@ public class InfAura extends Module {
 
     private void attack(Entity target) {
         if (rotation.get() == RotationMode.OnHit) Rotations.rotate(Rotations.getYaw(target), Rotations.getPitch(target, Target.Body));
-        ModuleUtils.splitTeleport(mc.player.getPos(), target.getPos(), perBlink.get());
+        ModuleUtils.splitTeleport(mc.player.getPos(), target.getPos(), perBlink.get(), distance.get());
         mc.interactionManager.attackEntity(mc.player, target);
         mc.player.swingHand(Hand.MAIN_HAND);
-        ModuleUtils.splitTeleport(target.getPos(), mc.player.getPos(), perBlink.get());
+        ModuleUtils.splitTeleport(target.getPos(), mc.player.getPos(), perBlink.get(), distance.get());
 
         hitTimer = 0;
     }
