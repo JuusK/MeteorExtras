@@ -18,12 +18,16 @@ Meteor addon that adds extra features.
 ## Features
 
 ### Modules
+- AutoDrink (Automatically drinks potions)
+- AutoOminous (Automatically drinks Ominous Potions)
+- Flight+ (Flight but better)
 - InfAura (KillAura but with infinite reach)
 - LoginCommand (Lets you send commands on login)
-- Flight+ (Flight but better)
+- Prefix (Changes the default meteor prefix)
 - Reach+ (Infinite entity and block reach)
 - WGBypass (Lets you move in WorldGuard areas)
-- AutoDrink (Automatically drinks potions)
+- XPAura (Teleports to XP Orbs)
+
 ## Contributing
 
 Contributions are always welcome!
