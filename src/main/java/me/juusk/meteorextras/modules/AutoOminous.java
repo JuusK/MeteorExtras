@@ -84,6 +84,7 @@ public class AutoOminous extends Module {
         for(BossBarExtension extension : bossBars) {
             if(extension.uuid == event.bossBar.getUuid()) {
                 contains = true;
+                stopDrinking();
             }
         }
         if(!contains) {
