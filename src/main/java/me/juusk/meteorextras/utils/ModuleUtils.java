@@ -13,12 +13,12 @@ public class ModuleUtils {
         Vec3d targetPos = to;
         Vec3d toTarget = targetPos.subtract(from);
 
-        double distance = toTarget.length();
+        double distance = toTarget.length() - extraDistance;
 
         toTarget = toTarget.normalize();
 
 
-        toTarget = toTarget.multiply(distance - extraDistance);
+        toTarget = toTarget.multiply(distance);
         targetPos = playerPos.add(toTarget);
 
         double ceiledDistance = Math.ceil(distance / perBlink);
