@@ -29,6 +29,7 @@ public class MeteorExtras extends MeteorAddon {
         Modules.get().add(new AutoOminous());
         Modules.get().add(new Prefix());
         Modules.get().add(new XPAura());
+        Modules.get().add(new MaceAura());
 
         // Commands
         Commands.add(new Coords());
