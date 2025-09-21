@@ -26,7 +26,7 @@ public abstract class BossBarHudMixin {
         packet.accept(new BossBarS2CPacket.Consumer() {
             @Override
             public void add(UUID uuid, Text name, float percent, BossBar.Color color, BossBar.Style style, boolean darkenSky, boolean dragonMusic, boolean thickenFog) {
-                Modules.get().get(AutoOminous.class).bossBars.add(new BossBarExtension(uuid, name));
+                Modules.get().get(AutoOminous.class).bossBars.add(new BossBarExtension(uuid, name, ((AutoOminous)Modules.get().get("AutoOminous")).tick));
                 BossBarS2CPacket.Consumer.super.add(uuid, name, percent, color, style, darkenSky, dragonMusic, thickenFog);
             }
             @Override

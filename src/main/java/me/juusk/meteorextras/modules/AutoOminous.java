@@ -67,7 +67,7 @@ public class AutoOminous extends Module {
     public ArrayList<BossBarExtension> bossBars = new ArrayList<>();
     private final List<Class<? extends Module>> wasAura = new ArrayList<>();
     private boolean wasBaritone = false;
-    private int tick = 0;
+    public int tick = 0;
 
     public AutoOminous() {
         super(MeteorExtras.CATEGORY, "AutoOminous", "Automatically drinks Ominous Bottles.");
@@ -82,22 +82,25 @@ public class AutoOminous extends Module {
     private void onBossBar(RenderBossBarEvent.BossText event) {
         boolean contains = false;
         for(BossBarExtension extension : bossBars) {
-            if(extension.uuid == event.bossBar.getUuid()) {
+            if(extension.uuid.equals(event.bossBar.getUuid())) {
                 contains = true;
+                extension.lastSeenTick = tick;
                 stopDrinking();
             }
         }
         if(!contains) {
-            bossBars.add(new BossBarExtension(event.bossBar.getUuid(), event.bossBar.getName()));
+            bossBars.add(new BossBarExtension(event.bossBar.getUuid(), event.bossBar.getName(), tick));
         }
     }
 
 
+
+
     @EventHandler(priority = EventPriority.LOW)
     private void onTick(TickEvent.Pre event) {
-        if(tick >= 20) { bossBars.clear(); tick = 0; }
         if (Modules.get().get(AutoGap.class).isEating()) return;
         if(Modules.get().get(AutoEat.class).eating) return;
+        bossBars.removeIf(b -> tick - b.lastSeenTick > 40);
         int slot = findSlot();
         if (drinking) {
             if(slot < 0) {

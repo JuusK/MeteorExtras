@@ -7,15 +7,14 @@ import java.util.UUID;
 public class BossBarExtension {
     public UUID uuid;
     public Text name;
+    public int lastSeenTick;
 
-    public BossBarExtension(UUID uuid, Text name) {
+    public BossBarExtension(UUID uuid, Text name, int currentTick) {
         this.uuid = uuid;
         this.name = name;
+        this.lastSeenTick = currentTick;
     }
 
-    public UUID getUuid() {
-        return uuid;
-    }
 
 
     public Text getName() {
