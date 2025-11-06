@@ -27,6 +27,7 @@ Meteor addon that adds extra features.
 - Reach+ (Infinite entity and block reach)
 - WGBypass (Lets you move in WorldGuard areas)
 - XPAura (Teleports to XP Orbs)
+- TooManyPackets (Cancels packets when too many)
 
 ## Contributing
 
