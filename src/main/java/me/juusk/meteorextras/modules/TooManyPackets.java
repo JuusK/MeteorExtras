@@ -27,7 +27,7 @@ public class TooManyPackets extends Module {
 
 
     public TooManyPackets() {
-        super(MeteorExtras.CATEGORY, "Cancels packets to stop you from getting kicked for 'Too many packets'", "TooManyPackets");
+        super(MeteorExtras.CATEGORY, "TooManyPackets", "Cancels packets to stop you from getting kicked for 'Too many packets'");
     }
     int packetCounter = 0;
     int tick = 0;
