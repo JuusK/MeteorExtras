@@ -1,8 +1,10 @@
 package me.juusk.meteorextras.utils;
 
 import meteordevelopment.meteorclient.mixininterface.IPlayerMoveC2SPacket;
+import meteordevelopment.meteorclient.utils.player.FindItemResult;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 
 public class ModuleUtils {
@@ -48,6 +50,11 @@ public class ModuleUtils {
             MinecraftClient.getInstance().player.networkHandler.sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(tempPos.x, tempPos.y, tempPos.z, true, MinecraftClient.getInstance().player.horizontalCollision));
 
         }
+    }
+
+
+    public static void placeWithOffhand(BlockPos blockPos, FindItemResult findItemResult, boolean rotate, int rotationPriority, boolean checkEntities) {
+
     }
 
 }
