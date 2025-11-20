@@ -5,7 +5,7 @@
 
 # Meteor Extras
 
-Meteor addon that adds extra features primarily for Anarchy Servers without anti-cheats.
+Meteor addon that adds extra features primarily for Anarchy servers without anti-cheats.
 
 
 ## How to use
