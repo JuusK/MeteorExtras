@@ -6,6 +6,8 @@ import meteordevelopment.meteorclient.events.entity.player.BreakBlockEvent;
 import meteordevelopment.meteorclient.events.world.TickEvent;
 import meteordevelopment.meteorclient.settings.*;
 import meteordevelopment.meteorclient.systems.modules.Module;
+import meteordevelopment.meteorclient.systems.modules.Modules;
+import meteordevelopment.meteorclient.systems.modules.combat.KillAura;
 import meteordevelopment.meteorclient.utils.Utils;
 import meteordevelopment.meteorclient.utils.misc.Pool;
 import meteordevelopment.meteorclient.utils.player.FindItemResult;
@@ -147,9 +149,17 @@ public class AutoFarmPlus extends Module {
         .build()
     );
 
+    private final Setting<Boolean> pauseOnKillAura = sgGeneral.add(new BoolSetting.Builder()
+        .name("pause-on-killAura")
+        .description("Pauses the module when killaura tries to hit.")
+        .defaultValue(true)
+        .build()
+    );
+
     private final Pool<BlockPos.Mutable> blockPosPool = new Pool<>(BlockPos.Mutable::new);
     private final List<BlockPos.Mutable> blocks = new ArrayList<>();
 
+    public boolean paused = false;
     int actions = 0;
 
     public AutoFarmPlus() {
@@ -180,6 +190,16 @@ public class AutoFarmPlus extends Module {
 
     @EventHandler
     private void onTick(TickEvent.Pre event) {
+        if (Utils.canUpdate()) {
+            KillAura k = Modules.get().get(KillAura.class);
+            paused = k.isActive() && pauseOnKillAura.get() && mc.player.getAttackCooldownProgress(0.5F) >= 1;
+        } else {
+            paused = false;
+        }
+
+
+        if(paused) return;
+
         actions = 0;
         BlockIterator.register(range.get(), range.get(), (pos, state) -> {
             if (mc.player.getEyePos().distanceTo(Vec3d.ofCenter(pos)) <= range.get())
