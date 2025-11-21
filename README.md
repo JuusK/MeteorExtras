@@ -5,7 +5,7 @@
 
 # Meteor Extras
 
-Meteor addon that adds extra features.
+Meteor addon that adds extra features primarily for Anarchy servers without anti-cheats.
 
 
 ## How to use
@@ -28,6 +28,7 @@ Meteor addon that adds extra features.
 - WGBypass (Lets you move in WorldGuard areas)
 - XPAura (Teleports to XP Orbs)
 - TooManyPackets (Cancels packets when too many)
+- Auto Farm+
 
 ## Contributing
 
