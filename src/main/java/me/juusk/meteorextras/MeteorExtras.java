@@ -31,6 +31,7 @@ public class MeteorExtras extends MeteorAddon {
         Modules.get().add(new XPAura());
         Modules.get().add(new TooManyPackets());
         Modules.get().add(new AutoFarmPlus());
+        Modules.get().add(new AutoPause());
 
         // Commands
         Commands.add(new Coords());
