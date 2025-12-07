@@ -114,7 +114,7 @@ public class DeathSpots extends Module {
     private final Setting<Integer> delay = sgFill.add(new IntSetting.Builder()
         .name("delay")
         .description("Delay in ticks between placing blocks.")
-        .defaultValue(0)
+        .defaultValue(1)
         .min(1)
         .visible(autoFill::get)
         .build()
