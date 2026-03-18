@@ -243,7 +243,7 @@ public class DeathSpots extends Module {
 
     @EventHandler
     private void onRender2D(Render2DEvent event) {
-        for (Entry player : players) player.render2D(event.drawContext.getMatrices());
+        for (Entry player : players) player.render2D();
     }
 
     @Override
@@ -335,7 +335,7 @@ public class DeathSpots extends Module {
             else event.renderer.sideHorizontal(x, y, z, x + xWidth, z, sideColor.get(), lineColor.get(), shapeMode.get());
         }
 
-        public void render2D(MatrixStack matrices) {
+        public void render2D() {
             if (!PlayerUtils.isWithinCamera(x, y, z, mc.options.getViewDistance().getValue() * 16)) return;
 
             TextRenderer text = TextRenderer.get();
