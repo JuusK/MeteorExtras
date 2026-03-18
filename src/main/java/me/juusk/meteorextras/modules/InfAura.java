@@ -483,10 +483,10 @@ public class InfAura extends Module {
 
     private void attack(Entity target) {
         if (rotation.get() == RotationMode.OnHit) Rotations.rotate(Rotations.getYaw(target), Rotations.getPitch(target, Target.Body));
-        ModuleUtils.splitTeleport(mc.player.getPos(), target.getPos(), perBlink.get(), distance.get());
+        ModuleUtils.splitTeleport(mc.player.getEntityPos(), target.getEntityPos(), perBlink.get(), distance.get());
         mc.interactionManager.attackEntity(mc.player, target);
         mc.player.swingHand(Hand.MAIN_HAND);
-        ModuleUtils.splitTeleport(target.getPos(), mc.player.getPos(), perBlink.get(), distance.get());
+        ModuleUtils.splitTeleport(target.getEntityPos(), mc.player.getEntityPos(), perBlink.get(), distance.get());
 
         hitTimer = 0;
     }

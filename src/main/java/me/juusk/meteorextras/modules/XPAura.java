@@ -71,8 +71,8 @@ public class XPAura extends Module {
                         }
                     }
 
-                    Vec3d startPos = mc.player.getPos();
-                    Vec3d endPos = e.getPos();
+                    Vec3d startPos = mc.player.getEntityPos();
+                    Vec3d endPos = e.getEntityPos();
 
 
                     ModuleUtils.splitTeleport(startPos, endPos, 8.5D, 0);
