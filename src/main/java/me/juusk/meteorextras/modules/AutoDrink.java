@@ -125,7 +125,7 @@ public class AutoDrink extends Module {
     }
 
     private void startDrinking() {
-        prevSlot = mc.player.getInventory().selectedSlot;
+        prevSlot = mc.player.getInventory().getSelectedSlot();
         drink();
 
         // Pause auras

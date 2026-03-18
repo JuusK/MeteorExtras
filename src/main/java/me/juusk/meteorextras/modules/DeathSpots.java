@@ -352,7 +352,7 @@ public class DeathSpots extends Module {
             double i = text.getWidth(name) / 2.0;
             Renderer2D.COLOR.begin();
             Renderer2D.COLOR.quad(-i, 0, i * 2, text.getHeight(), nameBackgroundColor.get());
-            Renderer2D.COLOR.render(matrices);
+            Renderer2D.COLOR.render();
 
             // Render name and health texts
             text.beginBig();

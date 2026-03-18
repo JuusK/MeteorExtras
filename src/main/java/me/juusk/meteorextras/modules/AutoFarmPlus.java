@@ -283,7 +283,7 @@ public class AutoFarmPlus extends Module {
         if (findItemResult != null && findItemResult.found()) {
 
             if(findItemResult.slot() == 36) {
-                BlockUtils.place(pos.up(), Hand.OFF_HAND, mc.player.getInventory().selectedSlot, rotate.get(), -100, true, false, true);
+                BlockUtils.place(pos.up(), Hand.OFF_HAND, mc.player.getInventory().getSelectedSlot(), rotate.get(), -100, true, false, true);
             } else {
                 if (offhand.get()) {
                     InvUtils.move().from(findItemResult.slot()).toOffhand();
