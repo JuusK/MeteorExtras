@@ -1,9 +1,9 @@
 plugins {
-    id "fabric-loom" version "1.12-SNAPSHOT"
+    id "fabric-loom" version "1.14-SNAPSHOT"
 }
 
 base {
-    archivesBaseName = project.archives_base_name
+    archivesName = project.archives_base_name
     version = project.mod_version
     group = project.maven_group
 }
@@ -47,7 +47,7 @@ tasks {
 
     jar {
         from("LICENSE") {
-            rename { "${it}_${project.base.archivesBaseName}" }
+            rename { "${it}_${project.base.archivesName}" }
         }
     }
 
