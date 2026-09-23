@@ -1,5 +1,6 @@
 package me.juusk.meteorextras.modules;
 
+import me.juusk.meteorextras.MeteorExtras;
 import me.juusk.meteorextras.utils.ModuleUtils;
 import meteordevelopment.meteorclient.events.packets.PacketEvent;
 import meteordevelopment.meteorclient.events.world.TickEvent;
@@ -37,6 +38,7 @@ import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.GameMode;
 
 import java.util.ArrayList;
@@ -94,9 +96,10 @@ public class InfAura extends Module {
             What to do when your target is blocking with a shield:
             - Ignore:   Don't attack them if they are blocking
             - Break:    Swap to an axe to disable the shield (Only if Auto Switch is enabled)
+            - Backstab: Hit them from the back to still damage them.
             - None:     Attack them as normal
         """)
-        .defaultValue(ShieldMode.None)
+        .defaultValue(ShieldMode.Backstab)
         .build()
     );
 
@@ -288,7 +291,7 @@ public class InfAura extends Module {
     public static int previousSlot;
 
     public InfAura() {
-        super(Categories.Combat, "InfAura", "Attacks specified entities around you.");
+        super(MeteorExtras.CATEGORY, "InfAura", "Attacks specified entities around you.");
     }
 
     @Override
@@ -483,10 +486,27 @@ public class InfAura extends Module {
 
     private void attack(Entity target) {
         if (rotation.get() == RotationMode.OnHit) Rotations.rotate(Rotations.getYaw(target), Rotations.getPitch(target, Target.Body));
-        ModuleUtils.splitTeleport(mc.player.getEntityPos(), target.getEntityPos(), perBlink.get(), distance.get());
+        Vec3d pos = target.getEntityPos();
+        boolean shouldDistance = true;
+        if(shieldMode.get() == ShieldMode.Backstab) {
+            if (target instanceof LivingEntity living) {
+                if (living.isBlocking()) {
+                    float yawRadians = (float) Math.toRadians(living.headYaw);
+
+                    float offsetDistance = distance.get().floatValue();
+
+                    double offsetX = -Math.sin(yawRadians) * offsetDistance;
+                    double offsetZ = Math.cos(yawRadians) * offsetDistance;
+
+                    pos = new Vec3d(living.getX() + offsetX, living.getY(), living.getZ() + offsetZ);
+                    shouldDistance = false;
+                }
+            }
+        }
+        ModuleUtils.splitTeleport(mc.player.getEntityPos(), pos, perBlink.get(), shouldDistance ? distance.get() : 0);
         mc.interactionManager.attackEntity(mc.player, target);
         mc.player.swingHand(Hand.MAIN_HAND);
-        ModuleUtils.splitTeleport(target.getEntityPos(), mc.player.getEntityPos(), perBlink.get(), distance.get());
+        ModuleUtils.splitTeleport(pos, mc.player.getEntityPos(), perBlink.get(), shouldDistance ? distance.get() : 0);
 
         hitTimer = 0;
     }
@@ -529,6 +549,7 @@ public class InfAura extends Module {
     public enum ShieldMode {
         Ignore,
         Break,
+        Backstab,
         None
     }
 

@@ -27,8 +27,9 @@ Meteor addon that adds extra features primarily for Anarchy servers without anti
 - Reach+ (Infinite entity and block reach)
 - WGBypass (Lets you move in WorldGuard areas)
 - XPAura (Teleports to XP Orbs)
-- TooManyPackets (Cancels packets when too many)
-- Auto Farm+
+- AutoPause (Automatically pauses modules from running)
+- Auto Farm+ (Better version of Meteor Rejects' Auto Farm)
+- Death Spots (Shows the positions where players died)
 
 ## Contributing
 
