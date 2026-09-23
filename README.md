@@ -29,7 +29,7 @@ Meteor addon that adds extra features primarily for Anarchy servers without anti
 - XPAura (Teleports to XP Orbs)
 - AutoPause (Automatically pauses modules from running)
 - Auto Farm+ (Better version of Meteor Rejects' Auto Farm)
-- Death Spots (Shows the positions where players died)
+- DeathSpots (Shows the positions where players died)
 
 ## Contributing
 
